@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.feiyu.gifview.GifView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,6 +16,11 @@ public class MainActivity extends AppCompatActivity {
         GifView gif_view = findViewById(R.id.gif_view);
 
         gif_view.setGifResource(R.mipmap.demo1);
+        new View(this);
         gif_view.play();
+
+
+
+
     }
 }

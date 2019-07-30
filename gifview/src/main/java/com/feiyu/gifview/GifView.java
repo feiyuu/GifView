@@ -1,4 +1,4 @@
-package com.example.feiyu.gifview;
+package com.feiyu.gifview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
