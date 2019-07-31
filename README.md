@@ -15,3 +15,14 @@ Step 2. Add the dependency
 	dependencies {
 	        implementation 'com.github.feiyuu:GifView:Tag'
 	}
+
+
+使用代码：
+
+        GifView gif_view = findViewById(R.id.gif_view);
+
+        gif_view.setGifResource(R.mipmap.demo1);
+        gif_view.play();
+	
+
+内部有锁屏监听，回到桌面监听，以及失去焦点监听，做了暂停继续处理。
