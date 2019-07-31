@@ -1,5 +1,5 @@
 # GifView
-继承view，自定义播放gif控件
+继承view，自定义播放gif控件，商用级
 
 
 Add it in your root build.gradle at the end of repositories:
