@@ -2,13 +2,11 @@ package com.feiyu.gifview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -16,7 +14,6 @@ import android.view.WindowManager;
  * @author feiyu
  * @Description: (播放gif工具类)
  * 支持SDK_INT >=16
- *
  */
 public class GifView extends View {
 
@@ -50,6 +47,10 @@ public class GifView extends View {
     private boolean mVisible = true;
     private int screenHeight;
     private int screenWidth;
+    private float scaleH = 1f;
+    private float scaleW = 1f;
+    private int scaleType = 0;
+    public static int FIT_CENTER = 0x001;
 
     public GifView(Context context) {
         this(context, null);
@@ -66,6 +67,10 @@ public class GifView extends View {
         super(context, attrs, defStyle);
 
         setViewAttributes(context, attrs, defStyle);
+    }
+
+    public void setScaleType(int scaleType) {
+        this.scaleType = scaleType;
     }
 
     @SuppressLint("NewApi")
@@ -134,7 +139,7 @@ public class GifView extends View {
             /*
              * Calculate horizontal scaling
              */
-            float scaleH = 1f;
+
             int measureModeWidth = MeasureSpec.getMode(widthMeasureSpec);
 
             if (measureModeWidth != MeasureSpec.UNSPECIFIED) {
@@ -143,12 +148,12 @@ public class GifView extends View {
 //                }
             }
 
-            scaleH = (float) movieWidth / (float)  MeasureSpec.getSize(widthMeasureSpec);
+            scaleW = (float) MeasureSpec.getSize(widthMeasureSpec) / (float) movieWidth;
 
             /*
              * calculate vertical scaling
              */
-            float scaleW = 1f;
+
             int measureModeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
             if (measureModeHeight != MeasureSpec.UNSPECIFIED) {
@@ -157,15 +162,20 @@ public class GifView extends View {
 //                }
             }
 
-            scaleW = (float) movieHeight / (float) screenHeight;
+            scaleH = (float) MeasureSpec.getSize(heightMeasureSpec) / (float) movieHeight;
 
             /*
              * calculate overall scale
              */
-            mScale = 1f / Math.max(scaleH, scaleW);
+            mScale = Math.min(scaleH, scaleW);
 
-            mMeasuredMovieWidth = (int) (movieWidth * mScale);
-            mMeasuredMovieHeight = (int) (movieHeight * mScale);
+
+            if (FIT_CENTER == scaleType) {
+                scaleH = scaleW = mScale;
+            }
+
+            mMeasuredMovieWidth = (int) (movieWidth * scaleW);
+            mMeasuredMovieHeight = (int) (movieHeight * scaleH);
 
             setMeasuredDimension(mMeasuredMovieWidth, mMeasuredMovieHeight);
 
@@ -255,8 +265,8 @@ public class GifView extends View {
     private void drawMovieFrame(Canvas canvas) {
         movie.setTime(mCurrentAnimationTime);
         canvas.save();
-        canvas.scale(mScale, mScale);
-        movie.draw(canvas, mLeft / mScale, mTop / mScale);
+        canvas.scale(scaleW, scaleH);
+        movie.draw(canvas, mLeft / scaleW, mTop / scaleH);
         canvas.restore();
     }
 
