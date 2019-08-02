@@ -12,14 +12,14 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.feiyuu:GifView:Tag'
+	        implementation 'com.github.feiyuu:GifView:Tag'	//1.1.0
 	}
 
 
 使用代码：
 
         GifView gif_view = findViewById(R.id.gif_view);
-
+ 	gif_view.setScaleType(GifView.FIT_CENTER);
         gif_view.setGifResource(R.mipmap.demo1);
         gif_view.play();
 	
