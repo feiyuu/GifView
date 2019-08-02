@@ -16,10 +16,7 @@ public class MainActivity extends AppCompatActivity {
         GifView gif_view = findViewById(R.id.gif_view);
 
         gif_view.setGifResource(R.mipmap.demo1);
-        new View(this);
         gif_view.play();
-
-
 
 
     }
