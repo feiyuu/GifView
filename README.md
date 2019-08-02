@@ -1,5 +1,6 @@
 # GifView
-继承view，自定义播放gif控件，商用级
+继承view，自定义播放gif控件
+1.1.0 增加了类似imageview的fit_center缩放模式，或可任意设置宽高拉伸。
 
 Step 1. Add it in your root build.gradle at the end of repositories:
 
