@@ -143,7 +143,7 @@ public class GifView extends View {
 //                }
             }
 
-            scaleH = (float) movieWidth / (float) screenWidth;
+            scaleH = (float) movieWidth / (float)  MeasureSpec.getSize(widthMeasureSpec);
 
             /*
              * calculate vertical scaling
